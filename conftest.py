@@ -1,6 +1,6 @@
 import pytest
 from methods.courier_methods import CourierMethods
-from src.data import create_courier_data
+from src.helpers import create_courier_data
 from methods.order_methods import OrderMethods
 
 
@@ -11,14 +11,13 @@ def courier_data():
 
 
 @pytest.fixture()
-def courier_data_with_delete_courier():
-    payload = create_courier_data()
-    yield payload
-    login = payload['login']
-    password = payload['password']
-    response = CourierMethods()
-    courier_id = response.courier_login(login, password).json()["id"]
-    response.courier_delete(courier_id)
+def courier_data_with_delete_courier(courier_data):
+    yield courier_data
+    login = courier_data['login']
+    password = courier_data['password']
+    cour_meth = CourierMethods()
+    courier_id = cour_meth.courier_login(login, password).json()["id"]
+    cour_meth.courier_delete(courier_id)
 
 
 @pytest.fixture()

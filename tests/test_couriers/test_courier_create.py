@@ -1,6 +1,7 @@
 import pytest
 import allure
-from src.data import create_courier_data, ErrorMessages
+from src.helpers import create_courier_data
+from src.data import ErrorMessages
 
 
 class TestCourierCreate:
